@@ -15,7 +15,7 @@ public class Main {
 		int N = (int)Math.pow(2, n); 
 		cnt = 0;
 
-		System.out.println(find(N, 0, 0)-1);
+		System.out.println(find(N, 0, 0));
 		
 //		for (int i = 0; i < N; i++) {
 //			for (int j = 0; j < N; j++) {
@@ -28,7 +28,7 @@ public class Main {
 	public static int find(int n, int tr, int tc) {
         
 		if(n==1) {
-			return 1;
+			return 0;
 		}
 		int sum = 0;
 		for(int i = tr; i<tr+n; i=i+n/2) {
