@@ -1,24 +1,27 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Scanner;
 import java.util.Stack;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		
-		int D = sc.nextInt();
-		int N = sc.nextInt();
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(bf.readLine());
+		int D = Integer.parseInt(st.nextToken());
+		int N = Integer.parseInt(st.nextToken());
 		
 		int exsize = 0;
-		
+		st = new StringTokenizer(bf.readLine());
 		Stack<Integer> oven = new Stack<>();
 		for(int i = 0; i<D; i++) {
 			if (i == 0) {
-				oven.add(sc.nextInt());
+				oven.add(Integer.parseInt(st.nextToken()));
 				exsize = oven.peek();
 			}else {
-				int temp = sc.nextInt();
+				int temp = Integer.parseInt(st.nextToken());
 				if(temp>exsize) {
 					oven.add(exsize);
 				}else {
@@ -29,9 +32,10 @@ public class Main {
 			}
 			
 		}
+		st = new StringTokenizer(bf.readLine());
 		Queue <Integer> pizza = new LinkedList<>();
 		for(int i = 0; i<N; i++) {
-			pizza.add(sc.nextInt());
+			pizza.add(Integer.parseInt(st.nextToken()));
 		}
 		int i = D+1;
 		int idx = 0;
