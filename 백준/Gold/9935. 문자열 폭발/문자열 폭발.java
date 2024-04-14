@@ -1,7 +1,9 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Main {
 
@@ -11,14 +13,14 @@ public class Main {
 	static HashMap<String, Integer> list;
 	static StringBuilder sb;
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		sb = new StringBuilder();
 
 		line = new ArrayDeque<>();
-		str = sc.nextLine().split("");
-		bomb = sc.nextLine().split("");
+		str = br.readLine().split("");
+		bomb = br.readLine().split("");
 		list = new HashMap<>();
 		for (int i = 0; i < bomb.length; i++) {
 			list.put(bomb[i], i);
