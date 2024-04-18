@@ -10,26 +10,15 @@ public class Main {
 		int[] list1;
 		int[] list2;
 		
-		if(str1.length()<str2.length()) {
-			list1 = new int[str1.length()];
-			list2 = new int[str2.length()];
-			for (int i = 0; i < list1.length; i++) {
-				list1[i]=str1.charAt(i)-'A';
-			}
-			for (int i = 0; i < list2.length; i++) {
-				list2[i]=str2.charAt(i)-'A';
-			}
-		}else {
-			list2 = new int[str1.length()];
-			list1 = new int[str2.length()];
-			for (int i = 0; i < list2.length; i++) {
-				list2[i]=str1.charAt(i)-'A';
-			}
-			for (int i = 0; i < list1.length; i++) {
-				list1[i]=str2.charAt(i)-'A';
-			}
+		list1 = new int[str1.length()];
+		list2 = new int[str2.length()];
+		for (int i = 0; i < list1.length; i++) {
+			list1[i]=str1.charAt(i)-'A';
 		}
-
+		for (int i = 0; i < list2.length; i++) {
+			list2[i]=str2.charAt(i)-'A';
+		}
+		
 		int maxresult = 0;
 		int[][] templist = new int[list1.length][list2.length];
 		int tempmax = 0;
@@ -48,10 +37,8 @@ public class Main {
 				}
 				
 				maxresult = Math.max(maxresult, templist[i][j]);
-//				System.out.print(templist[i][j]);
 				
 			}
-//			System.out.println();
 		}
 
 		System.out.println(maxresult);
