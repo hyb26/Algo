@@ -61,6 +61,9 @@ public class Main {
 				}
 //				System.out.println(tempcnt);
 				cnt += tempcnt;
+				if(cnt>result) {
+					return;
+				}
 			}
 //			System.out.println(cnt);
 			result = Math.min(result, cnt);
