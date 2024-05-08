@@ -1,114 +1,90 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 public class Main {
+	public static class Node {
+		int v;
+		int w;
 
-	static int N, M, R, ans;
-	static List<Node>[] adj;
-	static int[] items;
-
-	public static class Node implements Comparable<Node> {
-		int V, W;
-
-		public Node(int V, int W) {
-			this.V = V;
-			this.W = W;
+		public Node(int v, int w) {
+			this.v = v;
+			this.w = w;
 		}
-
-		@Override
-		public int compareTo(Node n) {
-			return this.W - n.W;
-		}
-
 	}
 
-	public static void main(String[] args) throws IOException {
+	static int result;
+	static int m;
+	static int n;
+
+	static List<List<Node>> list;
+	static int[] item;
+
+	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
-		
-		st = new StringTokenizer(br.readLine());
-//		N = sc.nextInt();
-//		M = sc.nextInt();
-//		R = sc.nextInt();
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		R = Integer.parseInt(st.nextToken());
 
-		adj = new List[N + 1];
-		items = new int[N + 1];
+		n = sc.nextInt();
+		m = sc.nextInt();
+		int r = sc.nextInt();
 
-		for (int i = 0; i <= N; i++) {
-			adj[i] = new ArrayList<>();
-		}
-		
-		st = new StringTokenizer(br.readLine());
-		for (int i = 1; i <= N; i++) {
-//			items[i] = sc.nextInt();
-			items[i] = Integer.parseInt(st.nextToken());
-		}
-		
-		int A, B, C;
-		for (int i = 0; i < R; i++) {
-			st = new StringTokenizer(br.readLine());
-//			int A = sc.nextInt();
-//			int B = sc.nextInt();
-//			int C = sc.nextInt();
-			A = Integer.parseInt(st.nextToken());
-			B = Integer.parseInt(st.nextToken());
-			C = Integer.parseInt(st.nextToken());
+		list = new ArrayList<>();
+		item = new int[n + 1];
 
-			adj[A].add(new Node(B, C));
-			adj[B].add(new Node(A, C));
-		}
-
-		ans = 0;
-
-		for (int i = 1; i <= N; i++) {
-			dijkstra(i);
-		}
-
-		System.out.println(ans);
-
-	}
-
-	static void dijkstra(int start) {
-		PriorityQueue<Node> pq = new PriorityQueue<>();
-		boolean[] visited = new boolean[N + 1];
-		int[] dist = new int[N + 1];
-
-		Arrays.fill(dist, 987654321);
-		dist[start] = 0;
-
-		pq.add(new Node(start, 0));
-
-		int sum = 0;
-		while (!pq.isEmpty()) {
-			Node curr = pq.poll();
-
-			if (visited[curr.V])
-				continue;
-
-			sum += items[curr.V];
-			visited[curr.V] = true;
-
-			for (Node node : adj[curr.V]) {
-				if (!visited[node.V] && M >= dist[curr.V] + node.W) {
-					dist[node.V] = Math.min(dist[node.V], dist[curr.V] + node.W);
-					pq.add(new Node(node.V, dist[node.V]));
-				}
+		for (int i = 0; i < n + 1; i++) {
+			list.add(new ArrayList<>());
+			if (i != 0) {
+				item[i] = sc.nextInt();
 			}
 		}
 
-		ans = Math.max(ans, sum);
+		for (int i = 0; i < r; i++) {
+			int a = sc.nextInt();
+			int b = sc.nextInt();
+			int c = sc.nextInt();
+			list.get(a).add(new Node(b, c));
+			list.get(b).add(new Node(a, c));
+		}
+		result = 0;
+		for (int i = 1; i < n + 1; i++) {
+			find(i);
+		}
 
+		System.out.println(result);
+
+	}
+
+	public static void find(int start) {
+		PriorityQueue<Node> pq = new PriorityQueue<>((Node a, Node b) -> a.w - b.w);
+		boolean[] visited = new boolean[n + 1];
+		pq.add(new Node(start, 0));
+		int[] dist = new int[n + 1];
+		Arrays.fill(dist, 987654321);
+		dist[start] = 0;
+
+		int sum = 0;
+
+		while (!pq.isEmpty()) {
+			Node temp = pq.poll();
+			if (visited[temp.v]) {
+				continue;
+			}
+			for (int i = 0; i < list.get(temp.v).size(); i++) {
+				if (list.get(temp.v).get(i).w + temp.w < dist[list.get(temp.v).get(i).v]) {
+					dist[list.get(temp.v).get(i).v] = list.get(temp.v).get(i).w + temp.w;
+				}
+				pq.add(new Node(list.get(temp.v).get(i).v, list.get(temp.v).get(i).w + temp.w));
+
+			}
+			if (dist[temp.v] <= m) {
+				sum += item[temp.v];
+
+			}
+			visited[temp.v] = true;
+		}
+
+		result = Math.max(result, sum);
 	}
 
 }
