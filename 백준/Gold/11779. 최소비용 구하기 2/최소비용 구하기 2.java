@@ -1,7 +1,10 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
 	public static class Node {
@@ -36,11 +39,11 @@ public class Main {
 	static int resultsize;
 	static StringBuilder resultlist;
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		n = sc.nextInt();
-		int m = sc.nextInt();
+		n = Integer.parseInt(br.readLine());
+		int m = Integer.parseInt(br.readLine());
 
 		list = new ArrayList<>();
 		resultsize = 0;
@@ -50,13 +53,15 @@ public class Main {
 			list.add(new ArrayList<>());
 		}
 
+		StringTokenizer st;
 		for (int i = 0; i < m; i++) {
-			list.get(sc.nextInt()).add(new Node(sc.nextInt(), sc.nextInt()));
+			st = new StringTokenizer(br.readLine());
+			list.get(Integer.parseInt(st.nextToken())).add(new Node(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
 		}
 
-		start = sc.nextInt();
-		end = sc.nextInt();
-
+		st = new StringTokenizer(br.readLine());
+		start = Integer.parseInt(st.nextToken());
+		end = Integer.parseInt(st.nextToken());
 		find();
 
 		System.out.println(result);
