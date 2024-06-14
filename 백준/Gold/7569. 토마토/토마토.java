@@ -1,13 +1,17 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int m = sc.nextInt();
-		int n = sc.nextInt();
-		int h = sc.nextInt();
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int m = Integer.parseInt(st.nextToken());
+		int n = Integer.parseInt(st.nextToken());
+		int h = Integer.parseInt(st.nextToken());
 		
 		int[][][] box = new int[n][m][h];
 		
@@ -17,8 +21,9 @@ public class Main {
 		
 		for(int i = 0; i<h; i++) {
 			for(int j = 0; j<n; j++) {
+				st = new StringTokenizer(br.readLine());
 				for(int k = 0; k<m; k++) {
-					box[j][k][i]=sc.nextInt();
+					box[j][k][i]=Integer.parseInt(st.nextToken());
 					if(box[j][k][i]==1) {
 						list.add(new int[] {j, k, i, 0});
 					}else if(box[j][k][i]==0) {
