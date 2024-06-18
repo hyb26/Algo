@@ -10,6 +10,7 @@ public class Main {
 	static int n;
 	static int q;
 	static int[][] map;
+    static int[][] map2;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,6 +21,7 @@ public class Main {
 		q = Integer.parseInt(st.nextToken());
 
 		map = new int[n][n];
+        map2 = new int[n][n];
 		for (int i = 0; i < n; i++) {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < n; j++) {
@@ -85,7 +87,6 @@ public class Main {
 	public static void storm(int range) {
 
 		int h = (int) Math.pow(2, range);
-		int[][] map2 = new int[n][n];
 		for (int i = 0; i < n; i += h) {
 			for (int k = 0; k < h; k++) {
 				for (int j = 0; j < n; j += h) {
