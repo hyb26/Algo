@@ -1,10 +1,12 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		String str = sc.nextLine();
+		String str = br.readLine();
 		while (!str.equals("end")) {
 			char[] list = str.toCharArray();
 			int x = 0;
@@ -20,7 +22,7 @@ public class Main {
 			}
 			if (o > x) {
 				System.out.println("invalid");
-				str = sc.nextLine();
+				str = br.readLine();
 				continue;
 			}
 			if (o + 1 == x || o == x) {
@@ -92,11 +94,11 @@ public class Main {
 			if (cant == 0 && ((cano>0 && canx==0) || (cano==0 && canx>0) || (cano == 0 && canx == 0 && o+x == 9 && o==x-1))) {
 				
 				System.out.println("valid");
-				str = sc.nextLine();
+				str = br.readLine();
 				continue;
 			}
 			System.out.println("invalid");
-			str = sc.nextLine();
+			str = br.readLine();
 
 		}
 
