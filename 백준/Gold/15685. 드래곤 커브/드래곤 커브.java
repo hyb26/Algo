@@ -1,56 +1,68 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    static int[][] delta = {{1, 0}, {0, -1}, {-1, 0}, {0, 1}};
-    
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        
-        int[][] map = new int[101][101];
-        
-        for(int tc = 0; tc < n; tc++) {
-            int originx = sc.nextInt();
-            int originy = sc.nextInt();
-            int d = sc.nextInt();
-            int g = sc.nextInt();
+	static int[][] delta = { { 1, 0 }, { 0, -1 }, { -1, 0 }, { 0, 1 } };
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(br.readLine());
+
+		int[][] map = new int[101][101];
+
+		for (int tc = 0; tc < n; tc++) {
+			String str = br.readLine();
+			StringTokenizer st = new StringTokenizer(str);
+			int originx = Integer.parseInt(st.nextToken());
+			int originy = Integer.parseInt(st.nextToken());
+			int d = Integer.parseInt(st.nextToken());
+			int g = Integer.parseInt(st.nextToken());
+
+			int x = originx;
+			int y = originy;
+
+			List<Integer> list = new ArrayList<>();
+
+			list.add(d);
+
+			for (int r = 0; r < g; r++) {
+				int size = list.size() - 1;
+
+				for (int i = size; i >= 0; i--) {
+					int temp = list.get(i);
+					list.add((temp + 1) % 4);
+				}
+			}
             
-            List<Integer> directions = new ArrayList<>();
-            directions.add(d);
-            
-            // Generate directions for each generation
-            for(int gen = 0; gen < g; gen++) {
-                int size = directions.size();
-                for(int i = size - 1; i >= 0; i--) {
-                    directions.add((directions.get(i) + 1) % 4);
-                }
-            }
-            
-            // Mark the map with the dragon curve
-            int x = originx;
-            int y = originy;
-            map[x][y] = 1;
-            for(int dir : directions) {
-                x += delta[dir][0];
-                y += delta[dir][1];
-                if(x >= 0 && x <= 100 && y >= 0 && y <= 100) {
-                    map[x][y] = 1;
-                }
-            }
-        }
-        
-        int result = 0;
-        
-        for(int i = 0; i < 100; i++) {
-            for(int j = 0; j < 100; j++) {
-                if(map[i][j] == 1 && map[i + 1][j] == 1 && map[i][j + 1] == 1 && map[i + 1][j + 1] == 1) {
-                    result++;
-                }
-            }
-        }
-        
-        System.out.println(result);
-    }
+			x = originx;
+			y = originy;
+
+			map[x][y]++;
+
+			for (int i = 0; i < list.size(); i++) {
+				int temp = list.get(i);
+				x += delta[temp][0];
+				y += delta[temp][1];
+				if (x <= 100 && y <= 100 && x >= 0 && y >= 0) {
+					map[x][y]++;
+				}
+			}
+		}
+
+		int result = 0;
+
+		for (int i = 0; i < 100; i++) {
+			for (int j = 0; j < 100; j++) {
+				if (map[i][j] > 0 && map[i + 1][j] > 0 && map[i][j + 1] > 0 && map[i + 1][j + 1] > 0) {
+					result++;
+				}
+			}
+		}
+
+		System.out.println(result);
+	}
 }
