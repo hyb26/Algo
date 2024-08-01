@@ -1,10 +1,11 @@
-
 class Solution {
     public static long solution(int w, int h) {
-		long count = 0;
-        for(int x=0; x<w; x++){
-            count += Math.ceil((double)h*(x+1)/w)-Math.floor((double)h*x/w);
+		long answer = 0;
+
+		for (int i = 0; i < h; i++) {
+			answer += (Math.ceil((double)(i+1)*w/h) - Math.floor((double)i*w/h));
         }
-        return (long)h*w-count;
+
+		return (long) w*h-answer;
 	}
 }
